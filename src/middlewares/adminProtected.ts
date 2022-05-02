@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
 const adminProtected = (req: Request, res: Response, next: NextFunction) => {
-  const adminPassword = (req.body && req.body.admin_password) || req.headers.admin_password;
+  const adminPassword = (req.body && req.body.admin_password);
+
   if(adminPassword === process.env.ADMIN_PASSWORD) {
     next();
   } else {

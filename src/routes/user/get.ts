@@ -5,11 +5,15 @@ const getUserInfo: RequestHandler = (req, res) => {
   const {id} = req.state.user;
 
   UserModel.findById(id).then((result) => {
-    res.deliver({
-      name: result.name,
-      phone: result.phone,
-      id: result._id,
-    })
+    if(result) {
+      res.deliver({
+        name: result.name,
+        phone: result.phone,
+        id: result._id,
+      })
+    } else {
+      res.deliver({})
+    }
   })
 }
 

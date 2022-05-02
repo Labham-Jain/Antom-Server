@@ -41,6 +41,10 @@ const ProductsSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+  gender: {
+    type: String,
+    required: true,
+  },
   rating: {
     type: [Number],
   },

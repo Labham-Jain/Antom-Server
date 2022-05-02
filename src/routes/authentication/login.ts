@@ -20,7 +20,7 @@ const loginHandler: RequestHandler = (req, res) => {
 
     bcrypt.compare(password, userDocument.password).then((passwordMatchResult) => {
       if(!passwordMatchResult) return res.status(401).deliver("Incorrect Password.");
-      const token = getToken({id: userDocument._id, name: userDocument.name});
+      const token = getToken({id: userDocument._id, name: userDocument.name, admin: userDocument.admin});
       res.deliver({token})
     })
   });

@@ -13,13 +13,21 @@ const postProducts: RequestHandler = async (req, res) => {
       const result = validateFields(req.body);
       if(!result) return res.status(400).deliver("Missing payload!");
     
-      // create product
-      ProductsModel.create(result).then(() => {
-        res.deliver("Product Added!")
-      }).catch((error) => {
-        console.log(error)
-        res.status(500).deliver("Some Error Occurred!");
-      })
+
+      // validate files
+      const files = req.files;
+
+      if(Array.isArray(files)){
+        const filePaths = files.map(file => `/images/${file.filename}`)
+        result.images = filePaths
+        // create product
+        ProductsModel.create(result).then(() => {
+          res.deliver("Product Added!")
+        }).catch((error) => {
+          console.log(error)
+          res.status(500).deliver("Some Error Occurred!");
+        })
+      }
     } else {
       res.status(403).deliver("You are not an admin!")
     }
